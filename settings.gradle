@@ -1,0 +1,17 @@
+include ':app'
+
+// Infrastructure
+include ':base'
+
+// Shared Feature Modules
+include ':task-common'
+include ':task-data'
+
+// Features
+include ':task-list'
+include ':task-detail'
+include ':task-statistics'
+include ':task-add-edit'
+
+// Test
+include ':test-support'

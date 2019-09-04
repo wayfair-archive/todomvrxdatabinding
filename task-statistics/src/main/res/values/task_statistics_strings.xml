@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="task_statistics_title">Statistics</string>
+    <string name="task_statistics_no_tasks">You have no tasks.</string>
+    <string name="task_statistics_incomplete_tasks">Active tasks: %1$d</string>
+    <string name="task_statistics_complete_tasks">Completed tasks: %1$d</string>
+</resources>

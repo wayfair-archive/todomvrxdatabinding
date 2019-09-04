@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="task_add_edit_title">Add/Edit Task</string>
+    <string name="task_add_edit_title_hint">Title</string>
+    <string name="task_add_edit_description_hint">Enter your ToDo here.</string>
+    <string name="task_add_edit_empty_field">One or more fields are empty.</string>
+</resources>

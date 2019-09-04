@@ -1,0 +1,10 @@
+apply from: configFile('android-ui-library-config.gradle')
+
+dependencies {
+    implementation project(':task-data')
+
+    api deps.test.junit
+    api deps.test.assertj
+    api deps.test.mockitoKotlin
+    api deps.test.mvrxTesting
+}

@@ -1,0 +1,54 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply from: configFile('android-common-config.gradle')
+
+android {
+    lintOptions.lintConfig configFile('quality/lint/lint.xml')
+    
+    dataBinding.enabled = true
+    testOptions.animationsDisabled = true
+}
+
+androidExtensions {
+    experimental = true // this comes with synthetic properties and Parcelable support
+}
+
+kapt {
+    correctErrorTypes = true
+    useBuildCache = true
+    mapDiagnosticLocations = true
+
+    arguments {
+        arg 'dagger.formatGeneratedSource', 'disabled'
+        arg 'dagger.experimentalAheadOfTimeSubcomponents', 'enabled'
+    }
+}
+
+dependencies {
+    if (name != 'base') implementation project(':base')
+
+    implementation deps.navigation.fragment
+    implementation deps.navigation.ui
+    implementation deps.kotlin
+    implementation deps.rxJava
+    implementation deps.rxAndroid
+    implementation deps.rxKotlin
+    api deps.mvrx
+
+    implementation deps.androidx.appcompat
+    api deps.androidx.constraint // api because exposed in Dagger
+    implementation deps.androidx.core
+    implementation deps.androidx.fragment
+    api deps.androidx.preference
+    implementation deps.material.material
+    implementation deps.dagger.runtime
+    implementation deps.dagger.androidRuntime
+    kapt deps.dagger.androidCompiler
+    kapt deps.dagger.compiler
+    compileOnly deps.dagger.assistedAnnotations
+    kapt deps.dagger.assisted
+
+    testImplementation project(':test-support')
+}

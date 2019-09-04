@@ -1,0 +1,6 @@
+if (!project.hasProperty("disableOpenForTesting")) {
+    apply plugin: "kotlin-allopen"
+    allOpen {
+        annotation('com.wayfair.todomvrxdatabinding.OpenForTesting')
+    }
+}

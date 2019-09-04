@@ -1,0 +1,9 @@
+apply from: configFile('android-ui-library-config.gradle')
+
+android {
+    resourcePrefix 'task_statistics_'
+}
+
+dependencies {
+    api project(':task-common')
+}

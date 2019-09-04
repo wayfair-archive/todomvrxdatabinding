@@ -1,0 +1,6 @@
+apply from: configFile('android-ui-library-config.gradle')
+
+dependencies {
+    implementation deps.lifecycle.extensions
+    api deps.lifecycle.java8
+}

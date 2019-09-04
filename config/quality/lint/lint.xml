@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <issue id="ObsoleteSdkInt" severity="error" />
+    <issue id="PrivateResource" severity="error" />
+    <issue id="ResourceType" severity="error" />
+    <issue id="UnusedResources" severity="error" />
+    <issue id="HardcodedText" severity="error" />
+    <issue id="DefaultLocale" severity="error" />
+    <issue id="CheckResult" severity="error" />
+    <issue id="VisibleForTests" severity="error" />
+    <issue id="RtlHardcoded" severity="error" />
+    <issue id="WifiManagerPotentialLeak" severity="error" />
+    <issue id="UnusedIds" severity="warning" />
+    <issue id="Registered" severity="error" />
+    <issue id="PermissionImpliesUnsupportedChromeOsHardware" severity="error" />
+
+    <!-- False Positives -->
+    <issue id="UnusedAttribute">
+        <ignore regexp="layout_marginVertical" />
+        <ignore regexp="layout_marginHorizontal" />
+        <ignore regexp="paddingHorizontal" />
+        <ignore regexp="paddingVertical" />
+    </issue>
+    <issue id="UnusedResources">
+        <ignore regexp="R.bool.com.crashlytics.useFirebaseAppId" /> <!-- auto-generated for Crashlytics -->
+    </issue>
+    <issue id="ImplicitSamInstance" severity="ignore" /> <!-- TODO enable when upgraded to AGP 3.5-->
+
+    <!-- Ignore Launcher and Waystation Debug Options Icon vector-->
+    <issue id="VectorPath">
+        <ignore regexp="ic_launcher_foreground_debug" />
+        <ignore regexp="debug_options_icon_foreground" />
+    </issue>
+
+    <!-- Ignored -->
+    <issue id="GoogleAppIndexingApiWarning" severity="ignore" />
+    <issue id="GoogleAppIndexingWarning" severity="ignore" />
+    <issue id="UnknownNullness" severity="ignore" />  <!-- https://issuetracker.google.com/issues/78011047 -->
+    <issue id="SyntheticAccessor" severity="ignore" />
+    <issue id="ObsoleteLintCustomCheck" severity="ignore" /> <!-- Comes from external libs we don't have control -->
+    <issue id="InvalidPackage" severity="ignore" /> <!-- Perf issues -->
+    <issue id="DalvikOverride" severity="ignore" /> <!-- Perf issues -->
+
+    <!-- Ignored from repo https://github.com/vanniktech/lint-rules since they are too much -->
+    <issue id="MatchingMenuId" severity="ignore" />
+    <issue id="MatchingViewId" severity="ignore" />
+    <issue id="XmlSpacing" severity="ignore" />
+    <issue id="RxJava2SchedulersFactoryCall" severity="ignore" />
+    <issue id="AssertjImport" severity="ignore" />
+    <issue id="InvalidSingleLineComment" severity="ignore" />
+    <issue id="RxJava2SubscribeMissingOnError" severity="ignore" />
+    <issue id="NamingPattern">
+        <ignore regexp=".*Steps" /> <!-- ignore BDD steps -->
+    </issue>
+
+    <!-- Warning from repo https://github.com/vanniktech/lint-rules since they are too much -->
+    <issue id="Todo" severity="warning" />
+</lint>

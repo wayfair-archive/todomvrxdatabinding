@@ -1,0 +1,12 @@
+apply from: configFile('android-ui-library-config.gradle')
+
+android {
+    resourcePrefix 'task_list_'
+}
+
+dependencies {
+    implementation project(':task-data')
+
+    kapt deps.moshi.compiler
+    implementation deps.moshi.core
+}

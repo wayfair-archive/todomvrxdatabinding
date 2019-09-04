@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewBinding"
+            type="com.wayfair.todomvrxdatabinding.tasklist.TaskListViewBinding" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/view_toolbar"
+                app:viewBinding="@{viewBinding.navigationViewBinding}" />
+
+            <ProgressBar
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-7dp"
+                android:layout_marginBottom="-7dp"
+                android:indeterminateOnly="true"
+                android:visibility="@{viewBinding.loadingIndicatorVisibility}"
+                app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tasksRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adapter="@{viewBinding.adapter}"
+                app:data="@{viewBinding.taskListItems}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewBinding.emptyTasksPlaceholderVisibility}">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/task_list_ic_assignment_turned_in_24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/task_list_no_todo_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_spacing"
+            android:src="@{viewBinding.fabImage}"
+            app:fabSize="normal"
+            app:layout_anchor="@id/tasksRecyclerView"
+            app:layout_anchorGravity="bottom|right|end"
+            android:onClickListener="@{viewBinding.onFabClickListener}" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

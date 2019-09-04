@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="small_spacing">8dp</dimen>
+    <dimen name="base_spacing">16dp</dimen>
+    <dimen name="large_spacing">24dp</dimen>
+    <dimen name="xlarge_spacing">32dp</dimen>
+
+</resources>

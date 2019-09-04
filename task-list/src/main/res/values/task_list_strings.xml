@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="task_list_title">@string/app_name</string>
+    <string name="task_list_no_todo_text">You have no ToDos</string>
+    <string name="task_list_menu_clear_all_tasks">Clear all</string>
+</resources>

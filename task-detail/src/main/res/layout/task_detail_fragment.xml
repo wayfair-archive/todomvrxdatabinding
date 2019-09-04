@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewBinding"
+            type="com.wayfair.todomvrxdatabinding.taskdetail.TaskDetailViewBinding" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/view_toolbar"
+            app:viewBinding="@{viewBinding.navigationViewBinding}" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/taskDetailsContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/base_spacing">
+
+            <CheckBox
+                android:id="@+id/taskCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@{viewBinding.isTaskComplete}"
+                android:onClickListener="@{viewBinding.taskCheckboxClickListener}"
+                app:layout_constraintEnd_toStartOf="@+id/taskTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/taskTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewBinding.taskTitle}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                app:layout_constraintBottom_toTopOf="@+id/taskSubtitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/taskCheckBox"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:id="@+id/taskSubtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewBinding.taskDescription}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/taskCheckBox"
+                app:layout_constraintTop_toBottomOf="@id/taskTitle"
+                tools:text="@tools:sample/lorem" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_spacing"
+            android:onClickListener="@{viewBinding.onFabClickListener}"
+            android:src="@{viewBinding.fabImage}"
+            app:fabSize="normal"
+            app:layout_anchor="@id/taskDetailsContent"
+            app:layout_anchorGravity="bottom|right|end" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

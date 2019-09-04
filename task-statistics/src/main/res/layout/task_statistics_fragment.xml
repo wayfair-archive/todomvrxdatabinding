@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewBinding"
+            type="com.wayfair.todomvrxdatabinding.taskstatistics.TaskStatisticsViewBinding" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/view_toolbar"
+            app:viewBinding="@{viewBinding.navigationViewBinding}" />
+
+        <TextView
+            android:id="@+id/noTasksPlaceholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_spacing"
+            android:text="@string/task_statistics_no_tasks"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="@{viewBinding.emptyStatsPlaceholderVisibility}"
+            tools:text="@string/task_statistics_no_tasks" />
+
+        <TextView
+            android:id="@+id/incompleteTasksStat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_spacing"
+            android:text="@{viewBinding.incompleteTasksText}"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="@{viewBinding.statsVisibility}"
+            tools:text="@string/task_statistics_incomplete_tasks" />
+
+        <TextView
+            android:id="@+id/completeTasksStat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/base_spacing"
+            android:text="@{viewBinding.completeTasksText}"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="@{viewBinding.statsVisibility}"
+            tools:text="@string/task_statistics_complete_tasks" />
+    </LinearLayout>
+</layout>

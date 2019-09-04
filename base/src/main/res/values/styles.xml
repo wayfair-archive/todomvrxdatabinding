@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.ToDoMvRxDatabinding" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+    </style>
+
+    <style name="ThemeOverlay.ToDoMvRxDatabinding.Toolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="ToDoMvRxDatabindingToolbarStyle">
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:elevation">@dimen/toolbar_elevation</item>
+        <item name="android:theme">@style/ThemeOverlay.ToDoMvRxDatabinding.Toolbar</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
+</resources>

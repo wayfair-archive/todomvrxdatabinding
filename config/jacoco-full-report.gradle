@@ -1,0 +1,71 @@
+def types = ['debug', 'release']
+
+types.each { type ->
+    def typeCapital = type.capitalize()
+
+    def jacocoTasks = [
+            'jacocoJVMTestReport',
+            "jacocoTest${typeCapital}UnitTestReport",
+    ]*.toString()
+
+    /**
+     * Jacoco Tasks for each module for given buildFlavor and buildType
+     */
+    def getReportTasks = {
+        project.allprojects
+                .findAll { !it.name.contains('test-support') }
+                .collect {
+            it.tasks.withType(JacocoReport).findAll {
+                it.name in jacocoTasks
+            }
+        }.flatten()
+    }
+
+    def jacocoFullReport = project.tasks.create("jacocoFullReport${typeCapital}", JacocoReport) {
+        group = 'reporting'
+        description = "Collects all jacoco reports from all modules for ${typeCapital}."
+
+        setOnlyIf {
+            executionData.files.any { it.exists() }
+        }
+        doFirst {
+            executionData = project.files(executionData.findAll { it.exists() }.flatten())
+            project.logger.info("Setting up jacocoFullReport for: " + getReportTasks())
+        }
+
+        executionData = project.files {
+            getReportTasks()*.executionData.findAll { it != null }
+        }
+
+        additionalSourceDirs = project.files {
+            getReportTasks()*.sourceDirectories.findAll { it != null }
+        }
+
+        classDirectories = project.files {
+            getReportTasks()*.classDirectories.findAll { it != null }
+        }
+
+        sourceDirectories = project.files {
+            getReportTasks()*.sourceDirectories.findAll { it != null }
+        }
+
+        jacocoClasspath = project.files {
+            getReportTasks()*.jacocoClasspath.findAll { it != null }
+        }
+
+        reports {
+            html.enabled = true
+            html.destination = file("$buildDir/reports/jacoco/${name}/html/")
+            xml.enabled = true
+            xml.destination = file("$buildDir/reports/jacoco/${name}/${name}.xml")
+        }
+    }
+
+    project.allprojects {
+        tasks.withType(JacocoReport).configureEach {
+            if (it.name in jacocoTasks) {
+                jacocoFullReport.dependsOn(it)
+            }
+        }
+    }
+}

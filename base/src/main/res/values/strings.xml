@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ToDo MvRx Databinding</string>
+    <string name="navigation_view_header_title">ToDos</string>
+    <string name="list_title">ToDo List</string>
+    <string name="statistics_title">Statistics</string>
+</resources>

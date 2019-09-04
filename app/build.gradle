@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply from: configFile('android-common-config.gradle')
+
+android {
+    dataBinding.enabled = true
+
+    defaultConfig {
+        applicationId "com.wayfair.todomvrxdatabinding"
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
+    }
+}
+
+kapt {
+    correctErrorTypes = true
+    mapDiagnosticLocations = true
+
+    arguments {
+        arg 'dagger.gradle.incremental', 'true'
+        arg 'dagger.formatGeneratedSource', 'disabled'
+        arg 'dagger.experimentalAheadOfTimeSubcomponents', 'enabled'
+        arg 'room.schemaLocation', file('roomSchemas').path
+    }
+}
+
+dependencies {
+    implementation project(':base')
+
+    // Features
+    implementation project(':task-add-edit')
+    implementation project(':task-statistics')
+    implementation project(':task-detail')
+    implementation project(':task-list')
+    api project(':task-common')
+
+    implementation deps.lifecycle.process
+    implementation deps.navigation.ui
+
+
+    implementation deps.room.ktx
+    implementation deps.room.rxJava
+    kapt deps.room.compiler
+    implementation deps.dagger.runtime
+    implementation deps.dagger.androidRuntime
+    kapt deps.dagger.androidCompiler
+    kapt deps.dagger.compiler
+
+//    testImplementation project(':test-support-android')
+}
+

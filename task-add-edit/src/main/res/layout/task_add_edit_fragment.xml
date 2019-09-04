@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewBinding"
+            type="com.wayfair.todomvrxdatabinding.taskaddedit.TaskAddEditViewBinding" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/view_toolbar"
+            app:viewBinding="@{viewBinding.navigationViewBinding}" />
+
+        <LinearLayout
+            android:id="@+id/taskAddEditContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize"
+            android:orientation="vertical"
+            android:padding="@dimen/base_spacing">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/task_add_edit_title_hint"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:text="@={viewBinding.taskTitle}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="@string/task_add_edit_description_hint"
+                android:inputType="textCapSentences"
+                android:lines="4"
+                android:text="@={viewBinding.taskDescription}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_spacing"
+            android:src="@{viewBinding.fabImage}"
+            app:fabSize="normal"
+            app:layout_anchor="@id/taskAddEditContent"
+            app:layout_anchorGravity="bottom|right|end"
+            android:onClickListener="@{viewBinding.onFabClickListener}" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

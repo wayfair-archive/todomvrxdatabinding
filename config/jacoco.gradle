@@ -1,0 +1,105 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = '0.8.3'
+}
+
+def excludeFiles = [
+        // Android
+        '**/BR.class',
+        '**/R.class',
+        '**/R$*.class',
+        '**/*$ViewInjector*.*',
+        '**/*$ViewBinder*.*',
+        '**/BuildConfig.*',
+        '**/Manifest*.*',
+        '**/*$Lambda$*.*',
+        '**/**$DefaultImpls.*',
+        // Dagger
+        '**/*Component$Builder.*',
+        '**/*Module.*',
+        '**/*Module_*.*',
+        '**/*Module$Companion.*',
+        '**/*Dagger*.*',
+        '**/*MembersInjector*.*',
+        '**/*_Provide*Factory*.*',
+        '**/*_*ClassFactory*.*',
+        '**/*_Factory*.*',
+        '**/*_AssistedFactory*.*',
+        '**/*$Creator.*',
+        // synthetic accessors
+        '**/*$*$*.*',
+        // tests
+        '**/test*/**',
+        '**/androidTest/**',
+        // databinding
+        '**/databinding/**',
+        '**/DataBinderMapperImpl*.*',
+        '**/DataBindingInfo.*',
+        '**/*_Impl*',
+        // infra workers
+        '**/*ActivityWorker.*',
+        '**/*ApplicationWorker.*',
+        '**/*Initializer.*',
+        // Moshi adapters
+        '**/*JsonAdapter.*',
+        // mvrx
+        '**/*ViewModel$Companion.*',
+]
+
+project.plugins.withId('com.android.application') {
+    android.applicationVariants.all { variant ->
+        configureJacoco(variant, excludeFiles)
+    }
+}
+project.plugins.withId('com.android.library') {
+    android.libraryVariants.all { variant ->
+        configureJacoco(variant, excludeFiles)
+    }
+}
+project.plugins.withId('java-library') {
+    configureJavaJacoco(excludeFiles)
+}
+
+void configureJavaJacoco(excludeFiles) {
+    project.tasks.named("jacocoTestReport").configure { enabled = false }
+    project.tasks.register("jacocoJVMTestReport", JacocoReport) {
+        dependsOn "test"
+        group = 'reporting'
+        description = 'Generate Jacoco coverage reports after running tests'
+
+        classDirectories = files(
+                fileTree(dir: "${buildDir}/classes/java/main", excludes: excludeFiles),
+                fileTree(dir: "${buildDir}/classes/kotlin/main", excludes: excludeFiles)
+        )
+
+        def sourceFolders = [
+                'src/main/java',
+                'src/main/kotlin'
+        ]
+        sourceDirectories = files(sourceFolders)
+        executionData = files(tasks.findByName("test").jacoco.destinationFile.path)
+    }
+}
+
+void configureJacoco(variant, excludeFiles) {
+    project.tasks.register("jacocoTest${variant.name.capitalize()}UnitTestReport", JacocoReport) {
+        dependsOn "test${variant.name.capitalize()}UnitTest"
+        group = 'reporting'
+        description = 'Generate Jacoco coverage reports after running tests'
+
+        classDirectories = files(
+                fileTree(dir: "${buildDir}/intermediates/javac/${variant.name}", excludes: excludeFiles),
+                fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variant.name}", excludes: excludeFiles)
+        )
+
+        def sourceFolders = [
+                'src/main/java',
+                'src/main/kotlin',
+                "src/${variant.flavorName}/java",
+                "src/${variant.buildType.name}/java",
+        ]
+        sourceDirectories = files(sourceFolders)
+        executionData = files(tasks.findByName("test${variant.name.capitalize()}UnitTest").jacoco.destinationFile.path)
+    }
+}

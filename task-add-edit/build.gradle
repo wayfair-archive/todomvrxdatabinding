@@ -1,0 +1,11 @@
+apply from: configFile('android-ui-library-config.gradle')
+
+android {
+    resourcePrefix 'task_add_edit_'
+}
+
+dependencies {
+    implementation project(':task-common')
+    kapt deps.moshi.compiler
+    implementation deps.moshi.core
+}

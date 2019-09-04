@@ -1,0 +1,50 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext.configFile = { name ->
+        rootProject.file("config/$name")
+    }
+    apply from: configFile('dependencies.gradle')
+
+    repositories {
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+        jcenter()
+
+    }
+    dependencies {
+        classpath deps.gradlePlugins.android
+        classpath deps.gradlePlugins.kotlin
+        classpath deps.gradlePlugins.ktlint
+        classpath deps.gradlePlugins.detekt
+        classpath deps.gradlePlugins.versions
+        classpath deps.gradlePlugins.kotlinAllOpen
+        classpath deps.gradlePlugins.staticAnalysis
+    }
+}
+// Needed for ktlint setup in `static-analysis.gradle`
+ext.ReporterType = org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+
+apply from: configFile('jacoco-full-report.gradle')
+
+subprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+
+    }
+
+    apply from: configFile('kotlin-open-for-testing.gradle')
+    apply from: configFile('dependency-resolution.gradle')
+
+    if (!name.contains('test-support')) {
+        apply from: configFile('jacoco.gradle')
+        apply from: configFile('static-analysis.gradle')
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

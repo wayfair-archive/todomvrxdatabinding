@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewBinding"
+            type="com.wayfair.todomvrxdatabinding.tasklist.TaskAdapterItemViewBinding" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/base_spacing"
+        android:onClickListener="@{viewBinding.taskClickListener}">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@{viewBinding.isComplete}"
+            android:onClickListener="@{viewBinding.checkboxClickListener}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{viewBinding.title}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            tools:text="@tools:sample/lorem" />
+    </LinearLayout>
+</layout>

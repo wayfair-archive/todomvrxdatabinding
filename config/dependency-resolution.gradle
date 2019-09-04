@@ -1,0 +1,8 @@
+configurations.all {
+    resolutionStrategy.eachDependency {
+        if (requested.group == 'org.jetbrains.kotlin') {
+            useVersion versions.kotlin
+        }
+    }
+    resolutionStrategy.force "com.github.shyiko:ktlint:$versions.ktlint"
+}

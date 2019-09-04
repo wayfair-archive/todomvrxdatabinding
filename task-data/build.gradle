@@ -1,0 +1,9 @@
+apply from: configFile('android-ui-library-config.gradle')
+
+android {
+    resourcePrefix 'task_data_'
+}
+
+dependencies {
+    api deps.room.ktx
+}
